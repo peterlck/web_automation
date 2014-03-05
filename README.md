@@ -33,7 +33,7 @@ http://download.eclipse.org/technology/m2e/releases
 Create Maven project witht the following command
 mvn archetype:generate -DgroupId=com.plcapital -DartifactId=SeleniumAutomation -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 
-#Should not do this after Indigo
+#Should not do following if you are using Eclipse after Indigo
 Works with Eclipse IDE
 mvn eclipse:eclipse
 Add classpath variables to project classpath
