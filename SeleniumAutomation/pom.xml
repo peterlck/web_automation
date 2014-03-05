@@ -11,11 +11,43 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <scope>test</scope>
     </dependency>
+    <!-- Looks like if both JUnit and TestNG dependency are declared, it will use the later? -->
+    <dependency>
+		<groupId>org.testng</groupId>
+		<artifactId>testng</artifactId>
+  		<scope>test</scope>
+	</dependency>
     <dependency>
     	<groupId>org.seleniumhq.selenium</groupId>
     	<artifactId>selenium-java</artifactId>
     </dependency>
+    <!--Adding log4j resulted in the following
+    SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+	SLF4J: Defaulting to no-operation (NOP) logger implementation
+	SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+	-->
+    <dependency>
+    	<groupId>net.sourceforge.jexcelapi</groupId>
+    	<artifactId>jxl</artifactId>
+    	<version>2.6.12</version>
+    </dependency>
+	<dependency>
+  		<groupId>log4j</groupId>
+  		<artifactId>log4j</artifactId>
+  		<version>1.2.14</version>
+  	</dependency>
+  	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<version>1.7.6</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-contrib</artifactId>
+		<version>3.5-FINAL</version>
+	</dependency>
   </dependencies>
   <dependencyManagement>
   	<dependencies>
@@ -29,18 +61,47 @@
   			<artifactId>selenium-java</artifactId>
   			<version>2.40.0</version>
   		</dependency>
+  		<dependency>
+  			<groupId>org.testng</groupId>
+  			<artifactId>testng</artifactId>
+  			<version>6.3.1</version>
+  			<scope>test</scope>
+  		</dependency>
   	</dependencies>
   </dependencyManagement>
   <build>
-  	<directory>${project.basedir}/target</directory>
+  	<!-- <directory>${project.basedir}/target</directory> -->
   	<plugins>
+  		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.1</version>
+			<!--  Not sure why if this configuration is added, it complains
+			No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
+			<configuration>
+				<source>1.6</source>
+				<target>1.6</target>
+			</configuration>
+			-->
+		</plugin>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>			
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>2.16</version>			
 			<configuration>
-			<!-- Skip the normal tests, we'll run them in the integration-test phase -->
-			<skip>true</skip>
-			</configuration>			
+			    <!-- If want to skip the normal tests, then change the <skip>value</skip> from false to true -->
+				<!-- Exclude GoogleTest if use TestNG dependency -->
+				<excludes>
+					<exclude>**/JUnitDefaultGoogleTest.java</exclude>
+          		</excludes>
+				<!-- Include GoogleTest if use JUnit dependency            		
+          		<includes>
+            		<include>**/JUnitDefaultGoogleTest.java</include>
+          		</includes>
+          		-->
+
+				<skip>false</skip>
+			</configuration>		
 			<executions>
 				<execution>
 					<phase>integration-test</phase>
@@ -50,7 +111,7 @@
 					<configuration>
 					<skip>false</skip>
 					<includes>
-						<include>**/*Tests.java</include>
+						<include>**/*Test.java</include>
 					</includes>
 					</configuration>
 				</execution>
@@ -58,4 +119,26 @@
 		</plugin>  
   	</plugins>
   </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.16</version>
+        <configuration>
+          <outputDirectory>${basedir}/target/newsite</outputDirectory>
+        </configuration>
+      </plugin>
+      <!-- Need to research more on Maven Site plugin
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <outputDirectory>${basedir}/target/newsite</outputDirectory>
+        </configuration>
+      </plugin>
+       -->
+    </plugins>
+  </reporting>
 </project>

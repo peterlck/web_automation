@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.Assert.fail; 
 
-public class DefaultGoogleTest {
+public class JUnitDefaultGoogleTest {
     private WebDriver driver;
     private String baseUrl="http://www.google.com";
     private StringBuffer verificationErrors = new StringBuffer();
