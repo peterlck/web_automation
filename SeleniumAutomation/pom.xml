@@ -23,11 +23,11 @@
     	<groupId>org.seleniumhq.selenium</groupId>
     	<artifactId>selenium-java</artifactId>
     </dependency>
-    <!--Adding log4j resulted in the following
+    <!--Adding jxl, log4j or poi resulted in the following
     SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 	SLF4J: Defaulting to no-operation (NOP) logger implementation
 	SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-	-->
+
     <dependency>
     	<groupId>net.sourceforge.jexcelapi</groupId>
     	<artifactId>jxl</artifactId>
@@ -48,6 +48,7 @@
 		<artifactId>poi-contrib</artifactId>
 		<version>3.5-FINAL</version>
 	</dependency>
+	-->
   </dependencies>
   <dependencyManagement>
   	<dependencies>
@@ -70,7 +71,7 @@
   	</dependencies>
   </dependencyManagement>
   <build>
-  	<!-- <directory>${project.basedir}/target</directory> -->
+  	<directory>${project.basedir}/target</directory>
   	<plugins>
   		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -89,19 +90,10 @@
 			<artifactId>maven-surefire-plugin</artifactId>
 			<version>2.16</version>			
 			<configuration>
-			    <!-- If want to skip the normal tests, then change the <skip>value</skip> from false to true -->
-				<!-- Exclude GoogleTest if use TestNG dependency -->
-				<excludes>
-					<exclude>**/JUnitDefaultGoogleTest.java</exclude>
-          		</excludes>
-				<!-- Include GoogleTest if use JUnit dependency            		
-          		<includes>
-            		<include>**/JUnitDefaultGoogleTest.java</include>
-          		</includes>
-          		-->
-
-				<skip>false</skip>
-			</configuration>		
+          		<suiteXmlFiles>
+            		<suiteXmlFile>testng.xml</suiteXmlFile>
+          		</suiteXmlFiles>
+        	</configuration>		
 			<executions>
 				<execution>
 					<phase>integration-test</phase>

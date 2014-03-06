@@ -27,11 +27,16 @@ NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are no
 Git Repo
 https://github.com/plcapital/web_automation
 
+Install TestNG plugin for Eclipse
+http://beust.com/eclipse
+
 Install Maven plugin for Eclipse (m2ee)
 http://download.eclipse.org/technology/m2e/releases
 
 Create Maven project witht the following command
 mvn archetype:generate -DgroupId=com.plcapital -DartifactId=SeleniumAutomation -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+
 
 #Should not do following if you are using Eclipse after Indigo
 Works with Eclipse IDE
