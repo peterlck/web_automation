@@ -9,20 +9,31 @@
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <!-- Looks like if both JUnit and TestNG dependency are declared, it will use the later? -->
-    <dependency>
 		<groupId>org.testng</groupId>
 		<artifactId>testng</artifactId>
   		<scope>test</scope>
 	</dependency>
+	<dependency>
+     	<groupId>junit</groupId>
+      	<artifactId>junit</artifactId>
+      	<scope>test</scope>
+    </dependency>
     <dependency>
     	<groupId>org.seleniumhq.selenium</groupId>
     	<artifactId>selenium-java</artifactId>
     </dependency>
+            <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>1.1.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>1.1.2</version>
+            <scope>test</scope>
+        </dependency>
     <!--Adding jxl, log4j or poi resulted in the following
     SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 	SLF4J: Defaulting to no-operation (NOP) logger implementation
@@ -56,6 +67,7 @@
   			<groupId>junit</groupId>
   			<artifactId>junit</artifactId>
   			<version>4.8.2</version>
+  			<scope>test</scope>
   		</dependency>
   		<dependency>
   			<groupId>org.seleniumhq.selenium</groupId>
@@ -70,67 +82,30 @@
   		</dependency>
   	</dependencies>
   </dependencyManagement>
-  <build>
-  	<directory>${project.basedir}/target</directory>
-  	<plugins>
-  		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>3.1</version>
-			<!--  Not sure why if this configuration is added, it complains
-			No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
-			<configuration>
-				<source>1.6</source>
-				<target>1.6</target>
-			</configuration>
-			-->
-		</plugin>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<version>2.16</version>			
-			<configuration>
-          		<suiteXmlFiles>
-            		<suiteXmlFile>testng.xml</suiteXmlFile>
-          		</suiteXmlFiles>
-        	</configuration>		
-			<executions>
-				<execution>
-					<phase>integration-test</phase>
-					<goals>
-						<goal>test</goal>
-					</goals>
-					<configuration>
-					<skip>false</skip>
-					<includes>
-						<include>**/*Test.java</include>
-					</includes>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>  
-  	</plugins>
-  </build>
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.16</version>
-        <configuration>
-          <outputDirectory>${basedir}/target/newsite</outputDirectory>
-        </configuration>
-      </plugin>
-      <!-- Need to research more on Maven Site plugin
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.3</version>
-        <configuration>
-          <outputDirectory>${basedir}/target/newsite</outputDirectory>
-        </configuration>
-      </plugin>
-       -->
-    </plugins>
-  </reporting>
+  
+  <profiles>
+		<profile>
+        <!-- Added a junit-test profile that we can run either JUnit or TestNG tests -->
+        	<id>junit-test</id>
+        	<activation>
+            	<property>
+                	<name>junit.test</name>
+            	</property>               
+        	</activation>
+        	<build>
+            	<plugins>
+                	<plugin>
+                    	<groupId>org.apache.maven.plugins</groupId>
+                    	<artifactId>maven-surefire-plugin</artifactId>
+                    	<configuration>
+                        	<excludes>
+                            	<exclude>com/plcapital/TestNGHelloWorldTest</exclude>
+                        	</excludes>
+                        	<skip>true</skip>
+                    	</configuration>
+               		</plugin>
+            	</plugins>
+        	</build>
+   		</profile>		
+	</profiles>  
 </project>

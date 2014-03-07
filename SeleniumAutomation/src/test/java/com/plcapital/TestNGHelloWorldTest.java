@@ -6,7 +6,7 @@ public class TestNGHelloWorldTest{
 
 	@Test
 	public void HelloWorld() {
-		System.out.println("Hello World");
+		System.out.println("Why Always Hello World");
 
 	}
 }

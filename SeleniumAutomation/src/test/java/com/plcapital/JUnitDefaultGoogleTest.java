@@ -19,8 +19,12 @@ public class JUnitDefaultGoogleTest {
     private WebDriver driver;
     private String baseUrl="http://www.google.com";
     private StringBuffer verificationErrors = new StringBuffer();
+    
     @Before
     public void setUp() throws Exception {
+    	// Create a new instance of the Firefox driver
+        // Notice that the remainder of the code relies on the interface, 
+        // not the implementation????
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
