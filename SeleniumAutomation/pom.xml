@@ -1,28 +1,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.plcapital</groupId>
-  <artifactId>SeleniumAutomation</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>SeleniumAutomation</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-		<groupId>org.testng</groupId>
-		<artifactId>testng</artifactId>
-  		<scope>test</scope>
-	</dependency>
-	<dependency>
-     	<groupId>junit</groupId>
-      	<artifactId>junit</artifactId>
-      	<scope>test</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.seleniumhq.selenium</groupId>
-    	<artifactId>selenium-java</artifactId>
-    </dependency>
-            <dependency>
+  	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  	<modelVersion>4.0.0</modelVersion>
+  	<groupId>com.plcapital</groupId>
+  	<artifactId>SeleniumAutomation</artifactId>
+  	<packaging>jar</packaging>
+  	<version>1.0-SNAPSHOT</version>
+  	<name>SeleniumAutomation</name>
+  	<url>http://maven.apache.org</url>
+  	<dependencies>
+    	<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+  			<scope>test</scope>
+		</dependency>
+		<dependency>
+     		<groupId>junit</groupId>
+      		<artifactId>junit</artifactId>
+      		<scope>test</scope>
+    	</dependency>
+    	<dependency>
+    		<groupId>org.seleniumhq.selenium</groupId>
+    		<artifactId>selenium-java</artifactId>
+    	</dependency>
+		<dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>1.1.2</version>
@@ -34,67 +34,69 @@
             <version>1.1.2</version>
             <scope>test</scope>
         </dependency>
-    <!--Adding jxl, log4j or poi resulted in the following
-    SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-	SLF4J: Defaulting to no-operation (NOP) logger implementation
-	SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+    	<!--Adding jxl, log4j or poi resulted in the following
+    	SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+		SLF4J: Defaulting to no-operation (NOP) logger implementation
+		SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 
-    <dependency>
-    	<groupId>net.sourceforge.jexcelapi</groupId>
-    	<artifactId>jxl</artifactId>
-    	<version>2.6.12</version>
-    </dependency>
-	<dependency>
-  		<groupId>log4j</groupId>
-  		<artifactId>log4j</artifactId>
-  		<version>1.2.14</version>
-  	</dependency>
-  	<dependency>
-		<groupId>org.slf4j</groupId>
-		<artifactId>slf4j-log4j12</artifactId>
-		<version>1.7.6</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.poi</groupId>
-		<artifactId>poi-contrib</artifactId>
-		<version>3.5-FINAL</version>
-	</dependency>
-	-->
-  </dependencies>
-  <dependencyManagement>
-  	<dependencies>
-  		<dependency>
-  			<groupId>junit</groupId>
-  			<artifactId>junit</artifactId>
-  			<version>4.8.2</version>
-  			<scope>test</scope>
+    	<dependency>
+    		<groupId>net.sourceforge.jexcelapi</groupId>
+    		<artifactId>jxl</artifactId>
+    		<version>2.6.12</version>
+    	</dependency>
+		<dependency>
+  			<groupId>log4j</groupId>
+  			<artifactId>log4j</artifactId>
+  			<version>1.2.14</version>
   		</dependency>
   		<dependency>
-  			<groupId>org.seleniumhq.selenium</groupId>
-  			<artifactId>selenium-java</artifactId>
-  			<version>2.40.0</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>org.testng</groupId>
-  			<artifactId>testng</artifactId>
-  			<version>6.3.1</version>
-  			<scope>test</scope>
-  		</dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-contrib</artifactId>
+			<version>3.5-FINAL</version>
+		</dependency>
+		-->
   	</dependencies>
-  </dependencyManagement>
-  
-  <profiles>
+  	<dependencyManagement>
+  		<dependencies>
+  			<dependency>
+  				<groupId>junit</groupId>
+  				<artifactId>junit</artifactId>
+  				<version>4.8.2</version>
+  				<scope>test</scope>
+  			</dependency>
+  			<dependency>
+  				<groupId>org.seleniumhq.selenium</groupId>
+  				<artifactId>selenium-java</artifactId>
+  				<version>2.40.0</version>
+  			</dependency>
+  			<dependency>
+  				<groupId>org.testng</groupId>
+  				<artifactId>testng</artifactId>
+  				<version>6.3.1</version>
+  				<scope>test</scope>
+  			</dependency>
+  		</dependencies>
+  	</dependencyManagement>  
+  	<profiles>
 		<profile>
         <!-- Added a junit-test profile that we can run either JUnit or TestNG tests -->
         	<id>junit-test</id>
         	<activation>
             	<property>
                 	<name>junit.test</name>
+                	<value>test</value>
             	</property>               
         	</activation>
         	<build>
             	<plugins>
                 	<plugin>
+  						<!-- his test goal executes all of the unit tests this project can find under src/test/java 
+  						with filenames matching /Test*.java, /Test.java and */*TestCase.java. -->
                     	<groupId>org.apache.maven.plugins</groupId>
                     	<artifactId>maven-surefire-plugin</artifactId>
                     	<configuration>
