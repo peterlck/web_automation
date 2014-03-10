@@ -88,12 +88,55 @@
         	<id>testng-test</id>
         	<activation>
             	<property>
-                	<name>testng.test</name>
+                	<name>env</name>
+                	<value>test</value>
             	</property>
         	</activation>
   			<build>
   				<directory>${project.basedir}/target</directory>
   				<plugins>
+        			<plugin>
+                		<groupId>org.apache.maven.plugin</groupId>
+                		<artifactId>echo-plugin</artifactId>
+                		<version>0.1</version>
+                		<configuration>
+                        	<info>BUILT %s %s CONFIGURATION</info>
+                        	<elements>
+                                <param>ABC</param>
+                                <param>ALPHA</param>
+                        	</elements>
+                		</configuration>
+        			</plugin>
+        			<plugin>
+    					<groupId>org.apache.maven.plugins</groupId>
+    					<artifactId>maven-antrun-plugin</artifactId>
+    					<version>1.6</version>
+    					<configuration>
+                			<target>
+                    			<echo message="Your log message for project basedir: ${project.basedir}"/>
+                			</target>
+                		</configuration>
+                		<executions>
+          					<execution>
+            				<id>compile</id>
+            				<phase>compile</phase>
+            				<configuration>
+              				<target>
+                				<property name="compile_classpath" refid="maven.compile.classpath"/>
+                				<!--<property name="runtime_classpath" refid="maven.runtime.classpath"/>-->
+                				<!--<property name="test_classpath" refid="maven.test.classpath"/>-->
+                				<!--<property name="plugin_classpath" refid="maven.plugin.classpath"/>-->
+                				<ant antfile="${basedir}/build.xml">
+                  					<target name="dist"/>
+               		 			</ant>
+              				</target>
+            				</configuration>
+            				<goals>
+              					<goal>run</goal>
+            				</goals>
+          					</execution>
+        				</executions>              		
+        			</plugin>
   					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-compiler-plugin</artifactId>
@@ -111,11 +154,12 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<version>2.16</version>	
 						<configuration>
+							<!-- I suspect skip value might not be granular enough at configuration level but at plugin level -->          					
           					<skip>false</skip>  
           					<suiteXmlFiles>
             					<suiteXmlFile>testng.xml</suiteXmlFile>
           					</suiteXmlFiles> 
-        				</configuration> 				
+        				</configuration>				
 						<executions>
 							<execution>
 								<phase>integration-test</phase>
@@ -123,10 +167,12 @@
 									<goal>test</goal>
 								</goals>
 								<configuration>
-									<skip>true</skip>
-									<includes>
-										<include>com/plcapital/TestNGHelloWorldTest</include>
-									</includes>										
+									<skip>false</skip>
+									<excludes>
+										<exclude>com/plcapital/AppTest.java</exclude>
+										<exclude>com/plcapital/JUnitDefaultGoogleTest.java</exclude>
+										<exclude>com/plcapital/ExportedSeleniumIDERecordingTest.java</exclude>
+									</excludes>										
 								</configuration>
 							</execution>
 						</executions>
@@ -139,7 +185,8 @@
         	<id>junit-test</id>
         	<activation>
             	<property>
-                	<name>junit.test</name>
+                	<name>env</name>
+                	<value>test</value>
             	</property>               
         	</activation>
         	<build>
